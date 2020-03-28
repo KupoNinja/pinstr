@@ -6,7 +6,8 @@ export const PinSchema = new Schema(
     title: { type: String, required: true },
     description: { type: String, required: true },
     creatorEmail: { type: String, required: true },
-    public: { type: Boolean, default: true }
+    public: { type: Boolean, default: true },
+    isDeleted: { type: Boolean, default: false, required: true }
   },
   { timestamps: true, toJSON: { virtuals: true } }
 );
@@ -18,11 +19,10 @@ PinSchema.virtual("creator", {
   justOne: true
 });
 
-// STUB Always includes the creator 
+// STUB Always includes the creator
 // PinSchema.pre("find", includeCreator);
 // PinSchema.pre("findOne", includeCreator);
 // async function includeCreator(next) {
 //   await this.populate("creator");
 //   next();
 // }
-

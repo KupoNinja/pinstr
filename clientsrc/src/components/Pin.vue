@@ -8,7 +8,7 @@
       <i
         class="fa fa-trash text-muted mr-2"
         v-if="$auth.isAuthenticated && $auth.user.email == pin.creatorEmail"
-        @click="deletePin"
+        @click="deletePin(pin)"
       ></i>
     </div>
   </div>
@@ -25,12 +25,13 @@ export default {
     UserAvatar
   },
   methods: {
-    async deletePin() {
+    async deletePin(pin) {
       let yes = this.$confirm("Delete the pin?");
       if (!yes) {
         return;
       }
-      this.$store.dispatch("removePin");
+      this.$store.dispatch("deletePin", pin);
+      // this.$toast.("Pin deleted!");
     }
   }
 };

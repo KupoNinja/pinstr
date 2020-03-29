@@ -21,6 +21,7 @@ export default new Vuex.Store({
     },
     removePin(state, pin) {
       // Breaks here
+      debugger;
       let i = state.pins.findIndex(p => p._id == pin._id);
       if (i == -1) {
         return;
@@ -49,8 +50,10 @@ export default new Vuex.Store({
       commit("addPin", pin);
     },
     async deletePin({ commit }, pin) {
-      let pinToDelete = await $resource.delete("api/pins/" + pin._id);
-      commit("removePin", pinToDelete);
+      let success = await $resource.delete("api/pins/" + pin._id);
+      if (success) {
+        commit("removePin", pin);
+      }
     }
   },
   modules: {}
